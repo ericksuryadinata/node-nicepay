@@ -39,7 +39,7 @@ class Sender {
         }
     }
 
-    async inquiry(url, data) {
+    async cancel(url, data) {
         const config = {
             url: 'nicepay/direct/v2/cancel',
             method: 'POST',

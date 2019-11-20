@@ -29,7 +29,9 @@ let res = await nicepay.setup(data).VA(dataVA)
 ## API
 
 setup(data)
+
 VA(dataVA)
+
 CC(dataCC)
 
 ## TODO
