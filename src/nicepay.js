@@ -17,8 +17,8 @@ class Nicepay {
             data.cartData = {}
         }
 
-        if (data.merFixAcctld == undefined){
-            data.merFixAcctld = ""
+        if (data.merFixAcctId == undefined){
+            data.merFixAcctId = ""
         }
         _.assign(data, this.options)
         util.checkRegis(data, _.concat(mandatory.ALL(), mandatory.VA()))
