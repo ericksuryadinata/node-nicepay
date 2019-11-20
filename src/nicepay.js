@@ -83,7 +83,7 @@ class Nicepay {
         util.checkSetup(options, mandatory.SETUP())
         this.URL = _.get(options, 'url')
         _.unset(options, 'url')
-        let key = _.values(options).join("")
+        let key = `${options.timeStamp}${options.iMid}${options.amt}${options.merchantKey}`
         this.merchantToken = crypto.createHash('sha256').update(Buffer.from(key, 'ascii')).digest('hex')
         _.unset(options, 'merchantKey')
         this.options = options
