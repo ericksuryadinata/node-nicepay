@@ -1,5 +1,5 @@
-"use strict";
+'use strict'
 
-const Nicepay = require("./nicepay.js");
+const Nicepay = require('./nicepay.js')
 
 module.exports = Nicepay
