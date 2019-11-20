@@ -16,6 +16,10 @@ class Nicepay {
         if (data.cartData === "" || data.cartData == undefined) {
             data.cartData = {}
         }
+
+        if (data.merFixAcctld == undefined){
+            data.merFixAcctld = ""
+        }
         _.assign(data, this.options)
         util.checkRegis(data, _.concat(mandatory.ALL(), mandatory.VA()))
         return await Send.registration(this.URL, data)
