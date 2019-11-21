@@ -7,7 +7,7 @@ const mandatory = require('./mandatory.js')
 const Send = require('./sender.js')
 
 class Nicepay {
-  async VA (data) {
+  async VA(data) {
     if (data.merchantToken === undefined) {
       data.merchantToken = this.merchantToken
     }
@@ -25,7 +25,7 @@ class Nicepay {
     return Send.registration(this.URL, data)
   }
 
-  async CC (data) {
+  async CC(data) {
     if (data.merchantToken === undefined) {
       data.merchantToken = this.merchantToken
     }
@@ -38,7 +38,7 @@ class Nicepay {
     return Send.registration(this.URL, data)
   }
 
-  async CVS (data) {
+  async CVS(data) {
     if (data.merchantToken === undefined) {
       data.merchantToken = this.merchantToken
     }
@@ -50,7 +50,7 @@ class Nicepay {
     return Send.registration(this.URL, data)
   }
 
-  async clickPay (data) {
+  async clickPay(data) {
     if (data.merchantToken === undefined) {
       data.merchantToken = this.merchantToken
     }
@@ -62,7 +62,7 @@ class Nicepay {
     return Send.registration(this.URL, data)
   }
 
-  async eWallet (data) {
+  async eWallet(data) {
     if (data.merchantToken === undefined) {
       data.merchantToken = this.merchantToken
     }
@@ -74,17 +74,22 @@ class Nicepay {
     return Send.registration(this.URL, data)
   }
 
-  async inquiry (data) {
+  async inquiry(data) {
+    if (data.merchantToken === undefined) {
+      data.merchantToken = this.merchantToken
+    }
+    _.assign(data, this.options)
+
     util.checkRegis(data, mandatory.INQUIRY())
     return Send.inquiry(this.URL, data)
   }
 
-  async cancel (data) {
+  async cancel(data) {
     util.checkRegis(data, mandatory.CANCEL())
     return Send.cancel(this.URL, data)
   }
 
-  setup (options) {
+  setup(options) {
     util.checkSetup(options, mandatory.SETUP())
     this.URL = _.get(options, 'url')
     _.unset(options, 'url')
