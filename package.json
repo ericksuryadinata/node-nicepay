@@ -1,6 +1,6 @@
 {
   "name": "node-nicepay",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Nicepay Payment Gateway SDK on Node.js",
   "main": "src/index.js",
   "scripts": {
