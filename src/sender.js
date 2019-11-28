@@ -2,9 +2,10 @@
 
 const RE = require('./Exceptions/RuntimeException.js')
 const axios = require('axios')
+const _ = require('lodash')
 
 class Sender {
-  async registration (url, data) {
+  async registration(url, data) {
     const config = {
       url: 'nicepay/direct/v2/registration',
       method: 'POST',
@@ -15,13 +16,14 @@ class Sender {
 
     try {
       let response = await axios.request(config)
+      _.assign(response.data, { request: data })
       return response
     } catch (error) {
       throw RE.incompleteRequest(error)
     }
   }
 
-  async inquiry (url, data) {
+  async inquiry(url, data) {
     const config = {
       url: 'nicepay/direct/v2/inquiry',
       method: 'POST',
@@ -37,8 +39,8 @@ class Sender {
       throw RE.incompleteRequest(error)
     }
   }
-
-  async cancel (url, data) {
+  
+  async cancel(url, data) {
     const config = {
       url: 'nicepay/direct/v2/cancel',
       method: 'POST',
