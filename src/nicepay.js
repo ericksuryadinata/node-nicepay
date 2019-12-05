@@ -22,7 +22,7 @@ class Nicepay {
     }
     _.assign(data, this.options)
 
-    util.checkRegis(data, _.concat(mandatory.ALL(), mandatory.VA()))
+    util.checkMissingParameter(data, _.concat(mandatory.ALL(), mandatory.VA()))
     return Send.registration(this.URL, data)
   }
 
@@ -35,7 +35,7 @@ class Nicepay {
       data.cartData = '{}'
     }
     _.assign(data, this.options)
-    util.checkRegis(data, _.concat(mandatory.ALL(), mandatory.CC()))
+    util.checkMissingParameter(data, _.concat(mandatory.ALL(), mandatory.CC()))
     return Send.registration(this.URL, data)
   }
 
@@ -47,7 +47,7 @@ class Nicepay {
       data.cartData = '{}'
     }
     _.assign(data, this.options)
-    util.checkRegis(data, _.concat(mandatory.ALL(), mandatory.CVS()))
+    util.checkMissingParameter(data, _.concat(mandatory.ALL(), mandatory.CVS()))
     return Send.registration(this.URL, data)
   }
 
@@ -59,7 +59,7 @@ class Nicepay {
       data.cartData = '{}'
     }
     _.assign(data, this.options)
-    util.checkRegis(data, _.concat(mandatory.ALL(), mandatory.CLICKPAY()))
+    util.checkMissingParameter(data, _.concat(mandatory.ALL(), mandatory.CLICKPAY()))
     return Send.registration(this.URL, data)
   }
 
@@ -71,7 +71,7 @@ class Nicepay {
       data.cartData = '{}'
     }
     _.assign(data, this.options)
-    util.checkRegis(data, _.concat(mandatory.ALL(), mandatory.EWALLET()))
+    util.checkMissingParameter(data, _.concat(mandatory.ALL(), mandatory.EWALLET()))
     return Send.registration(this.URL, data)
   }
 
@@ -81,21 +81,38 @@ class Nicepay {
     }
     _.assign(data, this.options)
 
-    util.checkRegis(data, mandatory.INQUIRY())
+    util.checkMissingParameter(data, mandatory.INQUIRY())
     return Send.inquiry(this.URL, data)
   }
 
   async cancel(data) {
-    util.checkRegis(data, mandatory.CANCEL())
+    if (data.merchantToken === undefined) {
+      data.merchantToken = this.merchantToken
+    }
+
+    if (data.preauthToken === undefined){
+      data.preauthToken = ""
+    }
+    _.assign(data, this.options)
+    util.checkMissingParameter(data, mandatory.CANCEL())
     return Send.cancel(this.URL, data)
   }
 
   setup(options) {
     try {
-      util.checkSetup(options, mandatory.SETUP())
+      if(options.referenceNo === undefined){
+        util.checkSetup(options,  _.without(mandatory.SETUP(),"referenceNo"))
+      }else{
+        util.checkSetup(options, _.without(mandatory.SETUP(), "tXid"))
+      }
       this.URL = _.get(options, 'url')
       _.unset(options, 'url')
-      let key = `${options.timeStamp}${options.iMid}${options.referenceNo}${options.amt}${options.merchantKey}`
+      let key = ""
+      if (options.referenceNo === undefined) {
+        key = `${options.timeStamp}${options.iMid}${options.tXid}${options.amt}${options.merchantKey}`
+      } else {
+        key = `${options.timeStamp}${options.iMid}${options.referenceNo}${options.amt}${options.merchantKey}`
+      }
       this.merchantToken = crypto.createHash('sha256').update(Buffer.from(key, 'ascii')).digest('hex')
       _.unset(options, 'merchantKey')
       this.options = options

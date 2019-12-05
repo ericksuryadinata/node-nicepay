@@ -47,7 +47,7 @@ module.exports = {
   },
   SETUP: function () {
     return [
-      'timeStamp', 'iMid', 'referenceNo', 'amt', 'merchantKey', 'url'
+      'timeStamp', 'iMid', 'referenceNo','tXid', 'amt', 'merchantKey', 'url'
     ]
   }
 }
