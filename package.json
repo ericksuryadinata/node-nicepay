@@ -28,7 +28,6 @@
   "dependencies": {
     "axios": "^0.19.0",
     "lodash": "^4.17.15",
-    "node-exceptions": "^4.0.1",
-    "request": "^2.88.0"
+    "node-exceptions": "^4.0.1"
   }
 }
