@@ -22,7 +22,7 @@
   },
   "homepage": "https://gitlab.com/ericksuryadinata/node-nicepay#readme",
   "devDependencies": {
-    "mocha": "^6.2.2",
+    "mocha": "^10.2.0",
     "moment": "^2.24.0"
   },
   "dependencies": {
